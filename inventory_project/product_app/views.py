@@ -10,51 +10,33 @@ from productapp.models import Product
 
 #-------------Views---------------------------------------------
 class ProductList(ListView):
-    template_name = 'productapp/product_list.html'
+    template_name = 'pages/products.html'
     model = Product
     context_object_name= 'products'
 
-
-# def ProductDetail(request, id):
-#     product = Product.objects.get(id=id)
-#     return render(request, 'productapp/product_detail.html', {'product': product})
-
 class ProductDetail(DetailView):
     model = Product
-    template_name = 'productapp/product_detail.html'
+    template_name = 'pages/product_details.html'
     context_object_name = 'product'
-    extra_context = {'category': Category.objects.all()}
 
-
-# def ProductNew(request):
-#     if request.method == 'get':
-#         form = ProductForm()
-#         return render(request, 'productapp/product_new.html', {'form': form})
-#     else:
-#     form = self.form_class(request.POST)
-#         if form.is_valid():
-#             post=form.save()
-#             post.save()
-#             return redirect('product_detail', pk=post.pk)
-#         return render(request, 'productapp/product_new.html', {'form': form})
 
 class ProductNew(LoginRequiredMixin,CreateView):
     model = Product
     fields = '__all__'
     exclude = ['user']
-    template_name = 'productapp/product_new.html'
+    template_name = 'pages/new_product.html'
     success_url = reverse_lazy('product:product_list')
     login_url= 'login'
 
-    def form_valid(self, form): #MRO
-        form.instance.user = self.request.user # logged in user
+    def form_valid(self, form):
+        form.instance.user = self.request.user 
         return super(ProductNew, self).form_valid(form)
 
 class ProductUpdate(UpdateView):
     model = Product
     fields = '__all__'
     exclude = ['user']
-    template_name = 'productapp/product_update.html'
+    template_name = 'pages/product_update.html'
     success_url = reverse_lazy('product:product_list')
 
 
