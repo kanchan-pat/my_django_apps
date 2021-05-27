@@ -1,0 +1,15 @@
+{% extends '../base.html' %}
+
+{% block title %}Product Detail{% endblock title %}
+
+{% block content %}
+    {% if product.image and product.image != 1 %}
+    <img src='{{product.image.url}}'>
+    {% endif %}
+    <h1>{{ product.name }}</h1>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {{ product.description }} <br>
+    {{ product.category }} <br>
+    ${{ product.price }} <br> <br>
+    <a href="{% url 'products' %}" > Back To Products </a>
+{% endblock content %}
