@@ -2,6 +2,9 @@
 from django.db import models
 
 #-------------Models---------------------------------
+# Model looks good. But few suggestions - 1. CATEGORY_CHOICES this way it has become the Class Data Members. Can be defined outside..
+#                                       2. Add image to Product so that you can get familier with handling images.
+#                                       3. MAke Category as seperate model to practice work on related data as well.
 class Product(models.Model):
     ELECTRONICS = 'EL'
     FASHION = 'FA'
